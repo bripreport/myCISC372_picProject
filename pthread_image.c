@@ -134,10 +134,17 @@ int main(int argc,char** argv){
             printf("You have applied a gaussian filter to Gauss which has caused a tear in the time-space continum.\n");
         }
         enum KernelTypes type=GetKernelType(argv[2]);
+	
+	
+	for(int i = 0; i <3; i++){
+		for(int j = 0; j < 3; j++){
+			algorithm[i][j] = algorithms[type][i][j];
+		}
+	}
+	
     
         Image bwImage;
-	
-	algorithm = algorithms[type]	
+		
         srcImage.data=stbi_load(fileName,&srcImage.width,&srcImage.height,&srcImage.bpp,0);
         if (!srcImage.data){
             printf("Error loading file %s.\n",fileName);
@@ -170,3 +177,11 @@ int main(int argc,char** argv){
         printf("Took %ld seconds\n",t2-t1);
        return 0;
 }
+
+/*
+ * The pthreads implementation was done mostly using examples from class slides.
+ *
+ * ChatGPT was used to help with final debugging, explaining existing code/functions, and correcting errors that showed up when compiling. 
+ * It was also used to help understand C-specific logic and address mistakes I made with syntax and pointers. 
+ * It helped with issues regarding the algorithm variable in main() which was not being defined or used properly resulting in segfaults and black output images, suggesting I loop through the 2d arrays to copy the values into the global algorithm var.  
+ */
