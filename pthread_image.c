@@ -98,14 +98,14 @@ enum KernelTypes GetKernelType(char* type){
 //parallelized convolute
 //Implemented using similar row-splitting approach from vector multiplication class example
 void *pth_convolute(void* rank){
-	long my_rank = (long) rank;
-	int local_num_of_rows_assigned = srcImage.height / thread_count;
-	int my_start_row = my_rank * local_num_of_rows_assigned;
-	int my_end_row = (my_rank +1) * local_num_of_rows_assigned - 1;
+	long myRank = (long) rank;
+
+	int myStartRow = (srcImage.height * myRank) / thread_count;
+	int myEndRow = (srcImage.height * (myRank +1)) / thread_count - 1;
 
 	int row,pix,bit,span;
         span=srcImage.bpp*srcImage.bpp;
-        for (row= my_start_row; row <= my_end_row;row++){
+        for (row= myStartRow; row <= myEndRow;row++){
             for (pix=0;pix<srcImage.width;pix++){
                 for (bit=0;bit<srcImage.bpp;bit++){
                     destImage.data[Index(pix,row,srcImage.width,bit,srcImage.bpp)]=getPixelValue(&srcImage,pix,row,bit,algorithm);
@@ -135,7 +135,9 @@ int main(int argc,char** argv){
         }
         enum KernelTypes type=GetKernelType(argv[2]);
     
-        Image srcImage,destImage,bwImage;   
+        Image bwImage;
+	
+	algorithm = algorithms[type]	
         srcImage.data=stbi_load(fileName,&srcImage.width,&srcImage.height,&srcImage.bpp,0);
         if (!srcImage.data){
             printf("Error loading file %s.\n",fileName);
