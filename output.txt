@@ -1,0 +1,9 @@
+Script started on Sat Apr 11 23:42:00 2026
+]0;brijeshp@r1n01.darwin:~/myCISC372_picProject[?1034h[brijeshp@r1n01 myCISC372_picProject]$ srun ./pth_image pic1.jpgh  edge
+Took 7 seconds
+]0;brijeshp@r1n01.darwin:~/myCISC372_picProject[brijeshp@r1n01 myCISC372_picProject]$ srun ./omp_image pic1.jpg edge
+Took 7 seconds
+]0;brijeshp@r1n01.darwin:~/myCISC372_picProject[brijeshp@r1n01 myCISC372_picProject]$ exir t
+exit
+
+Script done on Sat Apr 11 23:43:13 2026
