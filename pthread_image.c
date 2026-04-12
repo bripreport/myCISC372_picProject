@@ -157,8 +157,6 @@ int main(int argc,char** argv){
 
 	for(thread = 0; thread < thread_count; thread++){
 		pthread_create(&thread_handles[thread],NULL,&pth_convolute, (void*)thread);
-		printf("Testing that we've implemented thread correctly. This is thread: %ld\n",thread);
-	
 	}
 
         //convolute(&srcImage,&destImage,algorithms[type]);
